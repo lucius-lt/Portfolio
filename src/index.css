@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-primary: var(--color-primary);
+  --color-heading: var(--color-heading);
+  --color-body: var(--color-body);
+  --color-border: var(--color-border);
+  --color-accent: var(--color-accent);
+  
+  --color-highlightPink: var(--color-highlight-pink);
+  --color-highlightYellow: var(--color-highlight-yellow);
+  --color-highlightBlue: var(--color-highlight-blue);
+  --color-highlightGreen: var(--color-highlight-green);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-editorial: 'Playfair Display', serif;
+  --font-handwriting: 'Caveat', cursive;
+}
+
+@layer base {
+  :root {
+    --color-bg: #F9F6F0; /* Warm beige */
+    --color-surface: #FFFFFF;
+    --color-primary: #D96C2B; /* Orange Accent */
+    --color-heading: #1a1a1a;
+    --color-body: #4a4a4a;
+    --color-border: #E2DFD8;
+    --color-accent: #1E2A2F; /* Dark Navy */
+    
+    --color-highlight-pink: #ffb6c1;
+    --color-highlight-yellow: #ffe4b5;
+    --color-highlight-blue: #add8e6;
+    --color-highlight-green: #98fb98;
+  }
+
+  .dark {
+    --color-bg: #1E2A2F; /* Dark Navy */
+    --color-surface: #26343A;
+    --color-primary: #D96C2B;
+    --color-heading: #F9F6F0;
+    --color-body: #D1D5DB;
+    --color-border: #3A4B53;
+    --color-accent: #F9F6F0; /* Warm Beige Accent */
+    
+    --color-highlight-pink: #9D4E5B;
+    --color-highlight-yellow: #9B8246;
+    --color-highlight-blue: #466A7B;
+    --color-highlight-green: #4E865E;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  }
+  
+  body {
+    @apply bg-background text-body font-sans relative;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-heading font-editorial;
+  }
+}
+
+/* Grain texture overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.04;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2VGaWx0ZXIpIi8+PC9zdmc+');
+}
+
+/* Custom Cursor Styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+.custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+}
