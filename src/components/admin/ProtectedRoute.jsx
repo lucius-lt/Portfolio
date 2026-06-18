@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+/*import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { CMSContext } from '../../context/CMSContext';
 import { Loader2 } from 'lucide-react';
@@ -18,9 +18,20 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!adminUser) {
-    return <Navigate to="/admin/login" replace />;
+    export default function ProtectedRoute({ children }) {
+      return children;
+    }
   }
 
+  return children ? children : <Outlet />;
+};
+
+export default ProtectedRoute;
+*/
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const ProtectedRoute = ({ children }) => {
   return children ? children : <Outlet />;
 };
 

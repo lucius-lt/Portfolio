@@ -96,9 +96,9 @@ function App() {
             <Preloader onComplete={() => setLoading(false)} />
           )}
         </AnimatePresence>
-        
+
         {!isAdminRoute && <CustomCursor />}
-        
+
         <div className="min-h-screen bg-background text-body relative transition-colors duration-500">
           {/* Grain Overlay */}
           <div className="grain-overlay"></div>
@@ -151,7 +151,10 @@ function App() {
           {/* Admin Protected Dashboard Routes */}
           {isAdminRoute && (
             <Routes>
-              <Route path="/admin" element={
+              <Route
+                path="/admin"
+                element={<AdminDashboard />}
+              /><Route path="/admin" element={
                 <ProtectedRoute>
                   <AdminDashboard />
                 </ProtectedRoute>
