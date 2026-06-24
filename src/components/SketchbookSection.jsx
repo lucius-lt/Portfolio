@@ -1,9 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { CMSContext } from '../context/CMSContext';
 import { motion } from 'framer-motion';
+import SketchbookLightbox from './SketchbookLightbox';
 
 const SketchbookSection = () => {
   const { sketches, cmsLoading } = useContext(CMSContext);
+
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Only show the first 6 sketches in the grid
+  const displayedSketches = sketches.slice(0, 6);
+
+  const handleCardClick = useCallback((idx) => {
+    setSelectedIndex(idx);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const handleNavigate = useCallback((newIndex) => {
+    setSelectedIndex(newIndex);
+  }, []);
 
   return (
     <section id="sketchbook" className="py-24 overflow-hidden relative bg-background">
@@ -20,7 +41,7 @@ const SketchbookSection = () => {
             Opening pages...
           </div>
         ) : (
-          sketches.slice(0, 6).map((sketch, idx) => {
+          displayedSketches.map((sketch, idx) => {
             const rotations = [-4, 3, -1, 4, -3, 2];
             const rotate = rotations[idx % rotations.length];
             return (
@@ -30,26 +51,39 @@ const SketchbookSection = () => {
                 whileInView={{ opacity: 1, y: 0, rotate: rotate }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="relative w-72 flex-shrink-0"
+                className="relative w-72 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleCardClick(idx)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View artwork: ${sketch.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick(idx);
+                  }
+                }}
               >
                 {/* Tape decoration */}
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-6 bg-white/10 backdrop-blur-md border border-white/10 transform rotate-1 z-10 shadow-sm"></div>
                 
-                <div className="bg-surface p-4 pb-6 rounded-sm shadow-xl border border-border flex flex-col justify-between h-[360px]">
+                <div className="bg-surface p-4 pb-6 rounded-sm shadow-xl border border-border flex flex-col justify-between h-[360px] transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1 group-hover:border-primary/30">
+                  {/* Hover shine overlay */}
+                  <div className="absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/5 via-transparent to-transparent"></div>
+
                   <div className="w-full h-[240px] overflow-hidden rounded-sm bg-background border border-border">
                     <img 
                       src={sketch.imageUrl} 
                       alt={sketch.title} 
-                      className="w-full h-full object-cover filter grayscale contrast-110 saturate-[0.8]" 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                       loading="lazy" 
                     />
                   </div>
                   <div>
-                    <p className="font-handwriting text-heading mt-4 text-center text-xl truncate" title={sketch.title}>
+                    <p className="font-handwriting text-heading mt-1 text-center text-xl truncate" title={sketch.title}>
                       {sketch.title}
                     </p>
                     {sketch.caption && (
-                      <p className="text-[10px] text-body text-center font-mono mt-1 opacity-70 truncate" title={sketch.caption}>
+                      <p className="text-[10px] text-body text-center font-mono mt-1 opacity-70" title={sketch.caption}>
                         {sketch.caption}
                       </p>
                     )}
@@ -60,6 +94,15 @@ const SketchbookSection = () => {
           })
         )}
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      <SketchbookLightbox
+        sketches={displayedSketches}
+        selectedIndex={selectedIndex}
+        isOpen={lightboxOpen}
+        onClose={handleClose}
+        onNavigate={handleNavigate}
+      />
     </section>
   );
 };

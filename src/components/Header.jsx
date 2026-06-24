@@ -22,7 +22,7 @@ const Header = () => {
         <div className="flex flex-col md:flex-row justify-between items-center py-6 md:h-24 gap-4">
           <Link to="/" className="flex flex-col cursor-hover group text-center md:text-left">
             <span className="font-editorial font-bold text-2xl md:text-3xl text-heading tracking-tight group-hover:text-primary transition-colors">
-              Niyati Soni Portfolio
+              Niyati Soni
             </span>
             <span className="font-handwriting text-primary text-xl transform -rotate-2 -mt-1 ml-2 opacity-80">
               designer & developer

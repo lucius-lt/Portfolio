@@ -291,6 +291,85 @@ const AdminDashboard = () => {
     return isDirty;
   };
 
+
+  {/*Category fields*/}
+  const categoryFields = {
+  'UI/UX': {
+    title: 'UX Case Study Structure',
+    problem: 'Problem Statement',
+    process: 'Design Process',
+    outcomes: 'Outcomes & Impact',
+    problemPlaceholder: 'What was the user problem?',
+    processPlaceholder: 'Research, personas, wireframes, testing...',
+    outcomesPlaceholder: 'Results, metrics, learnings...'
+  },
+
+  'Frontend': {
+    title: 'Frontend Project Structure',
+    problem: 'Project Goal',
+    process: 'Implementation Process',
+    outcomes: 'Features Delivered',
+    problemPlaceholder: 'What problem does the application solve?',
+    processPlaceholder: 'React architecture, components, state management...',
+    outcomesPlaceholder: 'Features implemented and results...'
+  },
+
+  'Backend': {
+    title: 'Backend Project Structure',
+    problem: 'System Requirements',
+    process: 'Backend Architecture',
+    outcomes: 'API & Performance Results',
+    problemPlaceholder: 'What backend challenge was solved?',
+    processPlaceholder: 'Database design, APIs, authentication...',
+    outcomesPlaceholder: 'Performance, scalability, endpoints...'
+  },
+
+  'Fullstack': {
+    title: 'Fullstack Project Structure',
+    problem: 'Project Goal',
+    process: 'System Architecture',
+    outcomes: 'Final Results',
+    problemPlaceholder: 'What was built?',
+    processPlaceholder: 'Frontend + Backend + Database workflow...',
+    outcomesPlaceholder: 'Deployment, features, learnings...'
+  },
+
+  'Graphic Design': {
+    title: 'Graphic Design Process',
+    problem: 'Design Brief',
+    process: 'Creative Process',
+    outcomes: 'Final Deliverables',
+    problemPlaceholder: 'Client requirements and goals...',
+    processPlaceholder: 'Concepts, iterations, revisions...',
+    outcomesPlaceholder: 'Final designs and impact...'
+  },
+
+  'Branding': {
+    title: 'Brand Identity Process',
+    problem: 'Brand Challenge',
+    process: 'Brand Development',
+    outcomes: 'Identity System',
+    problemPlaceholder: 'What branding challenge existed?',
+    processPlaceholder: 'Research, logo exploration, typography...',
+    outcomesPlaceholder: 'Final brand assets and applications...'
+  },
+
+  'Experimental': {
+    title: 'Experimental Project Notes',
+    problem: 'Hypothesis',
+    process: 'Experiment Process',
+    outcomes: 'Key Findings',
+    problemPlaceholder: 'What were you testing?',
+    processPlaceholder: 'Experiments, prototypes, iterations...',
+    outcomesPlaceholder: 'Results and observations...'
+  }
+};
+
+{/*Helper Variable */}
+const currentCategory =
+  categoryFields[projectForm.category] || categoryFields['UI/UX'];
+
+
   return (
     <div className="min-h-screen bg-background text-heading font-sans">
       {/* Sticky Action Header */}
@@ -438,10 +517,13 @@ const AdminDashboard = () => {
               </section>
 
               {/* Case Study Details */}
-              <section className="bg-surface p-8 rounded-2xl border border-border shadow-sm">
+              {/* Case Study Details */}
+
+<section className="bg-surface p-8 rounded-2xl border border-border shadow-sm">
+            
                 <h2 className="text-lg font-bold font-editorial mb-6 flex items-center text-heading">
                   <span className="w-2.5 h-2.5 rounded-full bg-highlightBlue mr-3"></span>
-                  UX Case Study Structure
+                  {currentCategory.title}
                 </h2>
                 <div className="space-y-6">
                   <div>
@@ -457,42 +539,47 @@ const AdminDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Problem Statement</label>
+                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">{currentCategory.problem}</label>
                     <textarea 
                       name="problemStatement" 
                       value={projectForm.problemStatement} 
                       onChange={(e) => handleInputChange(e, 'project')} 
                       rows={3}
                       className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                      placeholder="What was the core problem to solve?" 
+                      placeholder={currentCategory.problemPlaceholder} 
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">The Process</label>
+                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">
+  {currentCategory.process}
+</label>
                     <textarea 
                       name="process" 
                       value={projectForm.process} 
                       onChange={(e) => handleInputChange(e, 'project')} 
                       rows={4}
                       className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                      placeholder="Describe research, user testing, wireframing milestones..." 
+                      placeholder={currentCategory.processPlaceholder}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Outcomes & Outcomes Impact</label>
+                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">
+  {currentCategory.outcomes}
+</label>
                     <textarea 
                       name="outcomes" 
                       value={projectForm.outcomes} 
                       onChange={(e) => handleInputChange(e, 'project')} 
                       rows={3}
                       className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                      placeholder="What were the outcomes and findings?" 
+                      placeholder={currentCategory.outcomesPlaceholder}
                     />
                   </div>
                 </div>
-              </section>
+             </section>
+
 
               {/* Media Section */}
               <section className="bg-surface p-8 rounded-2xl border border-border shadow-sm">

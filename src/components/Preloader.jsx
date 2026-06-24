@@ -32,7 +32,7 @@ const Preloader = ({ onComplete }) => {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="inline-block"
         >
-          Niyati Soni Portfolio
+          Niyati Soni
         </motion.span>
       </div>
       

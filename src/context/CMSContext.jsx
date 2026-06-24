@@ -20,72 +20,7 @@ const LOCAL_PROJECTS_KEY = 'niyati_portfolio_projects';
 const LOCAL_BLOGS_KEY = 'niyati_portfolio_blogs';
 const LOCAL_SKETCHES_KEY = 'niyati_portfolio_sketches';
 
-const SEED_PROJECTS = [
-  {
-    title: 'Little Lemon Restaurant',
-    slug: 'little-lemon-restaurant',
-    category: 'Frontend',
-    shortDescription: 'A responsive web app with booking capabilities built using React',
-    fullDescription: '<p>Features a table booking system with form validation, responsive design for all devices, real-time availability checking. Built with React components, Formik for forms, and CSS modules.</p>',
-    tags: ['React', 'CSS', 'Formik'],
-    architecture: 'Client-side React application with Formik for state management and validation. Fully responsive CSS Grid and Flexbox layouts.',
-    keyFeatures: ['Table booking system', 'Form validation', 'Responsive design for all devices', 'Real-time availability checking'],
-    imageUrls: ['https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80'],
-    featured: true,
-    problemStatement: 'Modern customers demand online booking systems, but small restaurants struggle with complex setup and third-party fees. Little Lemon needed a clean, native table reserve interface.',
-    process: 'Conducted user research, drew pen-and-paper layouts of the calendar booking steps, developed high-fidelity wireframes in Figma, and implemented using React and Formik.',
-    wireframes: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
-    finalDesigns: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=800&q=80',
-    outcomes: 'Increased reservation booking efficiency by 35% and lowered dependency on phone calls during peak dining hours.'
-  },
-  {
-    title: 'Distributed Command System',
-    slug: 'distributed-command-system',
-    category: 'Backend',
-    shortDescription: 'CLI tool for managing distributed nodes efficiently',
-    fullDescription: '<p>Allows remote command execution across multiple nodes, handles network failures gracefully, includes logging and monitoring. Written in C++ with custom networking library.</p>',
-    tags: ['C++', 'Networking', 'CLI'],
-    architecture: 'Peer-to-peer TCP networking model written in C++. Uses asynchronous I/O to maintain active connections with multiple nodes without blocking the main CLI thread.',
-    keyFeatures: ['Remote command execution across multiple nodes', 'Graceful network failure handling', 'Comprehensive logging and monitoring', 'Low-latency binary protocol'],
-    imageUrls: ['https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80'],
-    featured: false,
-    problemStatement: 'Managing decentralized compute nodes requires highly reliable packet routing, light resource footprints, and resilient recovery protocols that traditional HTTP services fail to deliver.',
-    process: 'Defined custom TCP application-layer frame syntax, prototyped asynchronous select/poll multiplexing loops, and tested under synthetic latency and heavy packet loss configurations.',
-    wireframes: 'https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=800&q=80',
-    finalDesigns: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80',
-    outcomes: 'Built a lightweight client-node agent running at <5MB memory footprint that safely executes commands across 100+ active servers simultaneously.'
-  },
-  {
-    title: '3D Character Series',
-    slug: '3d-character-series',
-    category: 'Graphic Design',
-    shortDescription: 'A stylized 3D character presentation featuring playful Pixar-inspired characters',
-    fullDescription: '<h3>Overview</h3><p>This project is a collection of stylized 3D cartoon characters presented through modern poster and portfolio layouts. The characters were generated using AI image generation tools and arranged, styled, and presented in Figma.</p><h3>Objective</h3><p>Create visually appealing 3D character posters, explore playful character styling and color palettes.</p><h3>Design Direction</h3><p>Pixar-style animated characters, Dribbble presentations, Behance case study layouts.</p>',
-    tags: ['Figma', 'AI Generation', 'Layout Design'],
-    imageUrls: ['https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80'],
-    featured: true,
-    problemStatement: 'Digital products often feel cold or technical. High-end visual characters can bring emotion and personality, but modeling from scratch takes months. We explored AI-assisted character generation and professional poster layouts.',
-    process: 'Iteratively prompted generated models for consistency in shading, color palettes, and playful shapes. Structured in Figma with high contrast editorial headers and layout margins.',
-    wireframes: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80',
-    finalDesigns: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-    outcomes: 'Completed 6 distinct characters showcasing a cohesive design brand identity, garnering high design feedback and Dribbble highlights.'
-  },
-  {
-    title: 'Rezet Mobile App',
-    slug: 'rezet-mobile-app',
-    category: 'UI/UX',
-    shortDescription: 'A calming mobile experience for booking workation retreats and managing wellness routines',
-    fullDescription: '<p>End-to-end UX/UI design for co-working & escape app. Includes user research, wireframes, interactive prototype, visual design system, and user testing. The app helps users book workation retreats, manage wellness routines, and discover peaceful escape destinations.</p>',
-    tags: ['UX/UI Design', 'Wireframing', 'Prototyping'],
-    imageUrls: ['https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80'],
-    featured: true,
-    problemStatement: 'Remote workers suffer from fatigue and burnouts. Finding quiet spaces that balance fast internet with grounding wellness retreats is extremely hard and fragmented.',
-    process: 'Conducted user interviews with 15 remote nomad engineers. Mapped task flows for booking and routines. Sketched wireframes, refined Figma design systems, and built an interactive Framer prototype.',
-    wireframes: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80',
-    finalDesigns: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-    outcomes: 'Designed a highly validated calming design system with 92% user satisfaction rating during interactive Figma prototype testing rounds.'
-  }
-];
+
 
 const SEED_BLOGS = [
   {
@@ -139,20 +74,11 @@ Once the ideas are clear, translating the layouts to Vite and CSS variables make
 
 const SEED_SKETCHES = [
   {
-    title: 'EcoCommerce App Wireframe',
-    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&h=800&q=80',
-    caption: 'Early wireframes exploring checkout layouts on paper.'
-  },
-  {
-    title: 'Typography Explorations',
-    imageUrl: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&h=800&q=80',
-    caption: 'Testing serif headers and custom handwritten notes.'
-  },
-  {
-    title: 'Figma Layer Structure Doodles',
-    imageUrl: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&h=600&q=80',
-    caption: 'Messy doodles trying to organize complex component variables.'
+    title: 'Chaos in Blue',
+    imageUrl: 'https://collection.cloudinary.com/de2e3ci5b/14927228ec1610fef59911723a991a39',
+    caption: 'Just letting the pen wander and seeing where it ends up.'
   }
+  
 ];
 
 export const CMSProvider = ({ children }) => {

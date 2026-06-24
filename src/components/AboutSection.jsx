@@ -16,7 +16,7 @@ const AboutSection = () => {
           className="flex-1 w-full relative"
         >
           {/* Paper Background */}
-          <div className="bg-[#f4f1ea] dark:bg-[#2A3B43] rounded-sm shadow-xl p-8 transform -rotate-2 relative border border-[#e8e4db] dark:border-[#3A4B53] aspect-square max-w-md mx-auto">
+          <div className=" rounded-sm shadow-xl p-8 transform -rotate-2 relative border border-[#e8e4db]  aspect-square max-w-md mx-auto">
             {/* Binder rings */}
             <div className="absolute left-2 top-0 bottom-0 w-4 flex flex-col justify-between py-4">
               {[1,2,3,4,5,6].map(i => (
