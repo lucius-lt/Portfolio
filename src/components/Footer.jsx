@@ -8,7 +8,7 @@ const Footer = () => {
         <span className="font-bold text-xl text-heading">Niyati Soni Portfolio</span>
       </div>
 
-      <div className="flex items-center space-x-4">
+      {/* <div className="flex items-center space-x-4">
         <a href="#" className="bg-surface border border-gray-200 text-body text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-50 hover:text-primary transition-all shadow-sm">
           Twitter X
         </a>
@@ -18,11 +18,12 @@ const Footer = () => {
         <a href="#" className="bg-surface border border-gray-200 text-body text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-50 hover:text-primary transition-all shadow-sm">
           Instagram
         </a>
-      </div>
+      </div> */}
 
-      <p className="text-[10px] font-medium text-label">
-        Copyright, Portfolio {new Date().getFullYear()}
-      </p>
+      <div className="flex flex-col items-start md:items-end text-[10px] font-medium text-label md:text-right space-y-1">
+        <p>Designed in Figma. Built with React + Tailwind.</p>
+        <p>Powered by Firebase. Animated with Framer Motion.</p>
+      </div>
     </footer>
   )
 }

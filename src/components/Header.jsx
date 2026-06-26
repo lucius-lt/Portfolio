@@ -56,10 +56,6 @@ const Header = () => {
               </>
             )}
             
-            <Link to="/blog" className="text-sm font-semibold text-body hover:text-primary transition-colors cursor-hover">
-              Journal
-            </Link>
-            
             <Link to="/admin" className="text-sm font-semibold text-body hover:text-primary transition-colors cursor-hover">
               Admin
             </Link>

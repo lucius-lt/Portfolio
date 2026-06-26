@@ -4,10 +4,10 @@ import { ArrowDownRight, PenTool } from 'lucide-react';
 const HeroSection = () => {
   return (
     <section id="home" className="py-20 md:py-32 flex flex-col items-center justify-center text-center relative mt-8 min-h-[70vh]">
-      
+
       {/* Floating Elements */}
-      <motion.div 
-        animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }} 
+      <motion.div
+        animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-10 left-10 md:left-32 opacity-70 hidden md:block"
       >
@@ -19,8 +19,8 @@ const HeroSection = () => {
         </svg>
       </motion.div>
 
-      <motion.div 
-        animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }} 
+      <motion.div
+        animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         className="absolute bottom-20 right-10 md:right-32 opacity-70 hidden md:block"
       >
@@ -40,30 +40,30 @@ const HeroSection = () => {
             Available for work
           </span>
         </div>
-        
+
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] text-heading font-editorial mb-8 relative">
-          Designer who <br className="hidden md:block"/>
+          UI/UX Designer & <br className="hidden md:block" />
           <span className="relative inline-block cursor-hover group">
-            <span className="relative z-10">sketches,</span>
+            <span className="relative z-10">Frontend</span>
             <span className="absolute bottom-2 left-0 w-full h-4 bg-highlightYellow/40 -z-10 transform -rotate-1 group-hover:bg-highlightYellow transition-colors"></span>
           </span>{' '}
-          designs & builds.
+          Developer.
         </h1>
 
         <p className="text-lg md:text-2xl mb-12 leading-relaxed font-light text-body max-w-2xl mx-auto">
-          Turning complex ideas into intuitive, premium, and beautiful digital experiences.
+          Building products from idea to implementation.
         </p>
 
         <div className="flex items-center justify-center gap-6">
-          <button 
+          <button
             onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
-            className="group flex items-center justify-center px-8 py-4 bg-heading text-bg rounded-full font-medium hover:scale-105 transition-transform shadow-lg cursor-hover"
+            className="group flex items-center justify-center px-8 py-4 bg-[#3B3632] text-[#F8F4EE] rounded-full font-medium hover:bg-[#4A443F] hover:scale-105 transition-all duration-300 shadow-lg cursor-hover"
           >
             Explore Work
             <ArrowDownRight className="w-5 h-5 ml-2 group-hover:animate-bounce" />
           </button>
 
-          <button 
+          <button
             onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
             className="group flex items-center justify-center px-8 py-4 border border-border text-heading rounded-full font-medium hover:bg-surface transition-colors cursor-hover"
           >

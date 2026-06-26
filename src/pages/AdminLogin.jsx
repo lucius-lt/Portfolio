@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 
 const AdminLogin = () => {
-  const { login, adminUser, authLoading } = useContext(CMSContext);
+  const { login, logout, adminUser, authLoading } = useContext(CMSContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,12 +28,34 @@ const AdminLogin = () => {
 
     setLoading(true);
     try {
-      await login(email, password);
+      const userCredential = await login(email.trim(), password);
+      const user = userCredential.user;
+      
+      const allowedEmails = [
+        'niyatisoni06@gmail.com',
+        'hello@niyatisoni.com',
+        'niyati@soni.com'
+      ];
+      
+      if (!user || !user.email || !allowedEmails.includes(user.email.toLowerCase())) {
+        await logout();
+        toast.error("Unauthorized Access: Only the portfolio owner can access this CMS.");
+        return;
+      }
+
       toast.success("Welcome back, Niyati!");
       navigate('/admin');
     } catch (err) {
       console.error(err);
-      toast.error(err.message || "Failed to log in. Please check your credentials.");
+      let errorMsg = "Invalid Credentials. Please check your email and password.";
+      if (err.code === 'auth/too-many-requests') {
+        errorMsg = "Too many failed attempts. Please try again later.";
+      } else if (err.code === 'auth/invalid-email') {
+        errorMsg = "Invalid email format.";
+      } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+        errorMsg = "Invalid Credentials.";
+      }
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -100,7 +122,7 @@ const AdminLogin = () => {
               <Loader2 className="w-5 h-5 animate-spin mr-2" />
             ) : (
               <>
-                Access Dashboard
+                Sign In
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </>
             )}

@@ -1,10 +1,17 @@
-/*import React, { useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 import { CMSContext } from '../../context/CMSContext';
 import { Loader2 } from 'lucide-react';
 
 const ProtectedRoute = ({ children }) => {
   const { adminUser, authLoading } = useContext(CMSContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authLoading && !adminUser) {
+      navigate('/admin/login', { replace: true });
+    }
+  }, [adminUser, authLoading, navigate]);
 
   if (authLoading) {
     return (
@@ -18,20 +25,9 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!adminUser) {
-    export default function ProtectedRoute({ children }) {
-      return children;
-    }
+    return null;
   }
 
-  return children ? children : <Outlet />;
-};
-
-export default ProtectedRoute;
-*/
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-
-const ProtectedRoute = ({ children }) => {
   return children ? children : <Outlet />;
 };
 

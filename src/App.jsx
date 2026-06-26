@@ -27,9 +27,19 @@ import { CMSProvider } from './context/CMSContext'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 import ProjectDetail from './pages/ProjectDetail'
-import BlogList from './pages/BlogList'
-import BlogDetail from './pages/BlogDetail'
+
 import ProtectedRoute from './components/admin/ProtectedRoute'
+
+const SectionWrapper = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
+    {children}
+  </motion.div>
+);
 
 const MainPortfolio = () => {
   return (
@@ -38,15 +48,16 @@ const MainPortfolio = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -15 }}
       transition={{ duration: 0.6 }}
+      className="space-y-12 md:space-y-24"
     >
       <HeroSection />
-      <WhatIDoSection />
-      <AboutSection />
-      <DesignProcessSection />
-      <ProjectGrid />
-      <DesignGallery />
-      <SketchbookSection />
-      <ContactSection />
+      <SectionWrapper><WhatIDoSection /></SectionWrapper>
+      <SectionWrapper><AboutSection /></SectionWrapper>
+      <SectionWrapper><DesignProcessSection /></SectionWrapper>
+      <SectionWrapper><ProjectGrid /></SectionWrapper>
+      <SectionWrapper><DesignGallery /></SectionWrapper>
+      <SectionWrapper><SketchbookSection /></SectionWrapper>
+      <SectionWrapper><ContactSection /></SectionWrapper>
     </motion.div>
   )
 }
@@ -130,9 +141,7 @@ function App() {
                     <Routes location={location} key={location.pathname}>
                       <Route path="/" element={<MainPortfolio />} />
                       <Route path="/project/:slug" element={<ProjectDetail />} />
-                      <Route path="/blog" element={<BlogList />} />
-                      <Route path="/blog/:slug" element={<BlogDetail />} />
-                      <Route path="/admin/login" element={<AdminLogin />} />
+
                     </Routes>
                   </AnimatePresence>
                 </main>
@@ -151,10 +160,8 @@ function App() {
           {/* Admin Protected Dashboard Routes */}
           {isAdminRoute && (
             <Routes>
-              <Route
-                path="/admin"
-                element={<AdminDashboard />}
-              /><Route path="/admin" element={
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={
                 <ProtectedRoute>
                   <AdminDashboard />
                 </ProtectedRoute>

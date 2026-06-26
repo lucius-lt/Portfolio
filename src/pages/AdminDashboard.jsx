@@ -2,12 +2,11 @@ import { useState, useContext, useEffect } from 'react';
 import { CMSContext } from '../context/CMSContext';
 import { 
   Loader2, Save, Trash2, Edit2, Copy, Star, 
-  ExternalLink, LogOut, FileText, Image as ImageIcon, Briefcase, Plus 
+  ExternalLink, LogOut, Image as ImageIcon, Briefcase, Plus 
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import ImageUploader from '../components/admin/ImageUploader';
 import RichTextEditor from '../components/admin/RichTextEditor';
-import MarkdownEditor from '../components/admin/MarkdownEditor';
 
 const initialProjectForm = {
   title: '',
@@ -27,15 +26,7 @@ const initialProjectForm = {
   outcomes: ''
 };
 
-const initialBlogForm = {
-  title: '',
-  slug: '',
-  shortDescription: '',
-  content: '',
-  coverImage: '',
-  tags: '',
-  featured: false
-};
+
 
 const initialSketchForm = {
   title: '',
@@ -45,15 +36,14 @@ const initialSketchForm = {
 
 const AdminDashboard = () => {
   const { 
-    projects, blogs, sketches, 
+    projects, sketches, 
     loading, cmsLoading,
     addProject, updateProject, deleteProject,
-    addBlog, updateBlog, deleteBlog,
     addSketch, updateSketch, deleteSketch,
     logout 
   } = useContext(CMSContext);
 
-  const [activeTab, setActiveTab] = useState('projects'); // 'projects', 'blogs', 'sketches'
+  const [activeTab, setActiveTab] = useState('projects'); // 'projects', 'sketches'
   const [saving, setSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
@@ -61,7 +51,7 @@ const AdminDashboard = () => {
 
   // Form State
   const [projectForm, setProjectForm] = useState(initialProjectForm);
-  const [blogForm, setBlogForm] = useState(initialBlogForm);
+
   const [sketchForm, setSketchForm] = useState(initialSketchForm);
 
   // Warn user before leaving if unsaved changes
@@ -83,7 +73,6 @@ const AdminDashboard = () => {
 
   const resetForm = () => {
     setProjectForm(initialProjectForm);
-    setBlogForm(initialBlogForm);
     setSketchForm(initialSketchForm);
     setIsEditing(false);
     setCurrentId(null);
@@ -102,13 +91,6 @@ const AdminDashboard = () => {
       } else {
         setProjectForm(prev => ({ ...prev, [name]: val }));
       }
-    } else if (formType === 'blog') {
-      if (name === 'title' && !isEditing) {
-        const autoSlug = value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-        setBlogForm(prev => ({ ...prev, title: value, slug: autoSlug }));
-      } else {
-        setBlogForm(prev => ({ ...prev, [name]: val }));
-      }
     } else if (formType === 'sketch') {
       setSketchForm(prev => ({ ...prev, [name]: val }));
     }
@@ -117,11 +99,6 @@ const AdminDashboard = () => {
   const handleRichTextChange = (val) => {
     setIsDirty(true);
     setProjectForm(prev => ({ ...prev, fullDescription: val }));
-  };
-
-  const handleMarkdownChange = (val) => {
-    setIsDirty(true);
-    setBlogForm(prev => ({ ...prev, content: val }));
   };
 
   const handleImagesUpdate = (newImages) => {
@@ -134,10 +111,7 @@ const AdminDashboard = () => {
     setSketchForm(prev => ({ ...prev, imageUrl: newImages[0] || '' }));
   };
 
-  const handleBlogImageUpdate = (newImages) => {
-    setIsDirty(true);
-    setBlogForm(prev => ({ ...prev, coverImage: newImages[0] || '' }));
-  };
+
 
   const validateProjectForm = () => {
     if (!projectForm.title.trim()) return "Title is required.";
@@ -147,13 +121,7 @@ const AdminDashboard = () => {
     return null;
   };
 
-  const validateBlogForm = () => {
-    if (!blogForm.title.trim()) return "Title is required.";
-    if (!blogForm.slug.trim()) return "Slug is required.";
-    if (!blogForm.shortDescription.trim()) return "Short description is required.";
-    if (!blogForm.content.trim()) return "Content is required.";
-    return null;
-  };
+
 
   const validateSketchForm = () => {
     if (!sketchForm.title.trim()) return "Title is required.";
@@ -183,24 +151,6 @@ const AdminDashboard = () => {
         } else {
           await addProject(projectData);
           toast.success("Project created successfully!");
-        }
-      } else if (activeTab === 'blogs') {
-        const error = validateBlogForm();
-        if (error) { toast.error(error); setSaving(false); return; }
-
-        const blogData = {
-          ...blogForm,
-          tags: typeof blogForm.tags === 'string'
-            ? blogForm.tags.split(',').map(s => s.trim()).filter(Boolean)
-            : blogForm.tags
-        };
-
-        if (isEditing) {
-          await updateBlog(currentId, blogData);
-          toast.success("Blog post updated successfully!");
-        } else {
-          await addBlog(blogData);
-          toast.success("Blog post created successfully!");
         }
       } else if (activeTab === 'sketches') {
         const error = validateSketchForm();
@@ -242,13 +192,6 @@ const AdminDashboard = () => {
         finalDesigns: item.finalDesigns || '',
         outcomes: item.outcomes || ''
       });
-    } else if (activeTab === 'blogs') {
-      setBlogForm({
-        ...item,
-        tags: Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || ''),
-        coverImage: item.coverImage || '',
-        content: item.content || ''
-      });
     } else if (activeTab === 'sketches') {
       setSketchForm({
         title: item.title || '',
@@ -266,9 +209,6 @@ const AdminDashboard = () => {
       if (activeTab === 'projects') {
         await deleteProject(item.id);
         toast.success("Project deleted.");
-      } else if (activeTab === 'blogs') {
-        await deleteBlog(item.id);
-        toast.success("Blog post deleted.");
       } else if (activeTab === 'sketches') {
         await deleteSketch(item.id);
         toast.success("Sketch deleted.");
@@ -393,12 +333,6 @@ const currentCategory =
             className={`flex items-center px-4 py-2 text-xs font-semibold rounded-lg transition-colors cursor-hover ${activeTab === 'projects' ? 'bg-surface text-primary shadow' : 'text-body hover:text-heading'}`}
           >
             <Briefcase className="w-3.5 h-3.5 mr-2" /> Projects
-          </button>
-          <button 
-            onClick={() => { if (!getFormDirtyState() || window.confirm("Discard changes?")) setActiveTab('blogs'); }}
-            className={`flex items-center px-4 py-2 text-xs font-semibold rounded-lg transition-colors cursor-hover ${activeTab === 'blogs' ? 'bg-surface text-primary shadow' : 'text-body hover:text-heading'}`}
-          >
-            <FileText className="w-3.5 h-3.5 mr-2" /> Blog Posts
           </button>
           <button 
             onClick={() => { if (!getFormDirtyState() || window.confirm("Discard changes?")) setActiveTab('sketches'); }}
@@ -661,93 +595,7 @@ const currentCategory =
             </div>
           )}
 
-          {/* Active Form: BLOGS */}
-          {activeTab === 'blogs' && (
-            <div className="space-y-8">
-              <section className="bg-surface p-8 rounded-2xl border border-border shadow-sm">
-                <h2 className="text-lg font-bold font-editorial mb-6 flex items-center text-heading">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary mr-3"></span>
-                  Blog Configuration
-                </h2>
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Article Title</label>
-                    <input 
-                      type="text" 
-                      name="title" 
-                      value={blogForm.title} 
-                      onChange={(e) => handleInputChange(e, 'blog')} 
-                      className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                      placeholder="The future of vector animation..." 
-                    />
-                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Slug</label>
-                      <input 
-                        type="text" 
-                        name="slug" 
-                        value={blogForm.slug} 
-                        onChange={(e) => handleInputChange(e, 'blog')} 
-                        className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-mono text-sm" 
-                        placeholder="future-vector-animation" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Tags / Topics</label>
-                      <input 
-                        type="text" 
-                        name="tags" 
-                        value={blogForm.tags} 
-                        onChange={(e) => handleInputChange(e, 'blog')} 
-                        className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                        placeholder="UI/UX, Vectors, Figma (comma separated)" 
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Short Hook / Excerpt</label>
-                    <textarea 
-                      name="shortDescription" 
-                      value={blogForm.shortDescription} 
-                      onChange={(e) => handleInputChange(e, 'blog')} 
-                      rows={2}
-                      className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium resize-none" 
-                      placeholder="Provide a small caption overview..." 
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-body uppercase tracking-wider mb-2">Cover Image URL</label>
-                    <input 
-                      type="text" 
-                      name="coverImage" 
-                      value={blogForm.coverImage} 
-                      onChange={(e) => handleInputChange(e, 'blog')} 
-                      className="w-full bg-background border border-border rounded-xl p-3 focus:ring-2 focus:ring-primary focus:border-transparent text-heading font-medium" 
-                      placeholder="https://..." 
-                    />
-                    <div className="mt-3">
-                      <ImageUploader 
-                        existingImages={blogForm.coverImage ? [blogForm.coverImage] : []} 
-                        onImagesUpdate={handleBlogImageUpdate} 
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section className="bg-surface p-8 rounded-2xl border border-border shadow-sm">
-                <h2 className="text-lg font-bold font-editorial mb-6 flex items-center text-heading">
-                  <span className="w-2.5 h-2.5 rounded-full bg-highlightBlue mr-3"></span>
-                  Article Content (Markdown)
-                </h2>
-                <MarkdownEditor value={blogForm.content} onChange={handleMarkdownChange} />
-              </section>
-            </div>
-          )}
 
           {/* Active Form: SKETCHES */}
           {activeTab === 'sketches' && (
@@ -813,7 +661,6 @@ const currentCategory =
               <span>Workspace Library</span>
               <span className="text-[10px] bg-background border border-border px-2.5 py-0.5 rounded-full text-body font-semibold">
                 {activeTab === 'projects' && `${projects.length} works`}
-                {activeTab === 'blogs' && `${blogs.length} articles`}
                 {activeTab === 'sketches' && `${sketches.length} sketches`}
               </span>
             </h2>
@@ -855,37 +702,6 @@ const currentCategory =
                     <div className="flex justify-end space-x-2 mt-2 pt-2 border-t border-border opacity-0 group-hover:opacity-100 transition-opacity">
                       <button onClick={() => startEdit(project)} className="p-1 text-body hover:text-primary transition-colors cursor-hover"><Edit2 className="w-3 h-3" /></button>
                       <button onClick={() => handleDelete(project)} className="p-1 text-body hover:text-red-500 transition-colors cursor-hover"><Trash2 className="w-3 h-3" /></button>
-                    </div>
-                  </div>
-                ))}
-
-                {/* BLOGS LIST */}
-                {activeTab === 'blogs' && blogs.length === 0 && (
-                  <p className="text-xs text-body text-center py-8">No articles published yet.</p>
-                )}
-                {activeTab === 'blogs' && blogs.map((blog) => (
-                  <div 
-                    key={blog.id} 
-                    className={`group p-3 border rounded-xl transition-all ${currentId === blog.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 rounded-lg bg-background overflow-hidden flex-shrink-0 relative border border-border">
-                        {blog.coverImage ? (
-                          <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
-                        ) : (
-                          <span className="text-[9px] text-body absolute inset-0 flex items-center justify-center">No Img</span>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-xs text-heading truncate">{blog.title}</h3>
-                        <p className="text-[10px] text-body truncate">
-                          {new Date(blog.createdAt).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex justify-end space-x-2 mt-2 pt-2 border-t border-border opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button onClick={() => startEdit(blog)} className="p-1 text-body hover:text-primary transition-colors cursor-hover"><Edit2 className="w-3 h-3" /></button>
-                      <button onClick={() => handleDelete(blog)} className="p-1 text-body hover:text-red-500 transition-colors cursor-hover"><Trash2 className="w-3 h-3" /></button>
                     </div>
                   </div>
                 ))}

@@ -147,7 +147,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-24 my-12 relative overflow-hidden"
+      className="py-12 pb-0 relative overflow-hidden"
     >
       {/* Background */}
       <div className="absolute top-0 left-0 w-full h-full bg-highlightYellow/5 -z-10 transform -skew-y-2 origin-top-left"></div>
@@ -157,7 +157,7 @@ const ContactSection = () => {
         {/* Left Side */}
         <div className="flex-1 w-full">
           <div className="relative inline-block mb-6">
-            <h2 className="text-5xl md:text-6xl font-editorial font-bold text-heading">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-editorial font-bold text-heading">
               Say Hello.
             </h2>
 
@@ -239,7 +239,7 @@ const ContactSection = () => {
                     name: e.target.value,
                   })
                 }
-                className="w-full bg-bg border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading"
+                className="w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading"
                 placeholder="John Doe"
                 required
               />
@@ -264,7 +264,7 @@ const ContactSection = () => {
                     email: e.target.value,
                   })
                 }
-                className="w-full bg-bg border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading"
+                className="w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading"
                 placeholder="john@example.com"
                 required
               />
@@ -289,7 +289,7 @@ const ContactSection = () => {
                     message: e.target.value,
                   })
                 }
-                className="w-full bg-bg border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading resize-none"
+                className="w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-medium text-heading resize-none"
                 placeholder="Tell me about your project..."
                 required
               />
@@ -299,7 +299,7 @@ const ContactSection = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center px-8 py-4 bg-heading text-bg rounded-xl font-bold hover:bg-primary transition-colors shadow-md group disabled:opacity-50"
+              className="w-full flex items-center justify-center px-8 py-4 bg-heading text-background rounded-xl font-bold hover:bg-primary transition-colors shadow-md group disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
             >
               {loading ? 'Sending...' : 'Send Message'}
 
@@ -309,6 +309,18 @@ const ContactSection = () => {
             </button>
           </form>
         </motion.div>
+      </div>
+
+      <div className="mt-12 mb-8 text-center">
+        <h3 className="font-editorial text-2xl md:text-3xl lg:text-4xl leading-tight text-heading">
+  Designer by curiosity.
+  <br />
+  <span className="italic text-primary ">
+    Developer by passion.
+  </span>
+  <br />
+  Problem solver by mindset.
+</h3>
       </div>
     </section>
   );
