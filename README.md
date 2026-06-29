@@ -6,7 +6,8 @@
 
 A modern, responsive developer portfolio showcasing my projects, UI/UX case studies, skills, and journey as a Computer Science student.
 
-[🌐 Live Demo](YOUR_PORTFOLIO_URL) • [💼 LinkedIn](YOUR_LINKEDIN_URL) • [📧 Email](mailto:YOUR_EMAIL)
+[🌐 Live Demo](
+https://portfolio-plk3.vercel.app/) • [💼 LinkedIn](https://www.linkedin.com/posts/niyati-soni-1515b028b_react-vite-javascript-ugcPost-7477041532512985089-9NGK/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZjp80B2M7WIfmbYoazTdhLiRtPIb5eTIo) • [📧 Email](mailto:niyatisoni06@gmail.com)
 
 </div>
 
