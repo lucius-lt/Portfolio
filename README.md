@@ -31,12 +31,6 @@ It features:
 
 ---
 
-# 📸 Preview
-
-![Portfolio Screenshot](public/preview.png)
-
----
-
 # 🚀 Features
 
 ### 👤 About Me
@@ -107,79 +101,6 @@ It features:
 
 ---
 
-# 📁 Folder Structure
-
-```text
-src/
-│
-├── components/
-├── pages/
-├── layouts/
-├── contexts/
-├── hooks/
-├── services/
-├── utils/
-├── assets/
-└── styles/
-```
-
----
-
-# ⚙️ Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/portfolio.git
-```
-
-Go inside the project
-
-```bash
-cd portfolio
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Start development server
-
-```bash
-npm run dev
-```
-
-Build for production
-
-```bash
-npm run build
-```
-
-Preview production build
-
-```bash
-npm run preview
-```
-
----
-
-# 🔐 Environment Variables
-
-Create a `.env` file.
-
-```env
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
-```
-
----
-
 # 🎯 Goals
 
 This portfolio was built to:
@@ -189,41 +110,6 @@ This portfolio was built to:
 - Document my learning journey
 - Demonstrate full-stack development skills
 - Provide an easy way to connect with recruiters and collaborators
-
----
-
-# 🌟 Future Improvements
-
-- AI-powered chatbot
-- Project search
-- Theme customization
-- Visitor analytics dashboard
-- Project filtering
-- Internationalization
-- Performance dashboard
-
----
-
-# 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome.
-
-Feel free to fork this repository and submit a pull request.
-
----
-
-# 📬 Connect With Me
-
-📧 Email: YOUR_EMAIL
-
-💼 LinkedIn:
-YOUR_LINKEDIN
-
-🌐 Portfolio:
-YOUR_WEBSITE
-
-🐙 GitHub:
-https://github.com/YOUR_USERNAME
 
 ---
 
